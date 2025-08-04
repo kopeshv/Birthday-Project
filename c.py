@@ -54,5 +54,5 @@ def home():
     return render_template("h.html",topic=topic,date=date,left=left,age=age,remain=remain,msg=msg,detail=detail,sec=sec)                      
                        
                     
-if __name__=="__main__":
-    web.run(debug=True)
+
+web.run(debug=True)
