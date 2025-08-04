@@ -54,6 +54,6 @@ def home():
     return render_template("h.html",topic=topic,date=date,left=left,age=age,remain=remain,msg=msg,detail=detail,sec=sec)                      
                        
                     
-
-port = int(os.environ.get("PORT", 10000))
-web.run(host="0.0.0.0", port=port)
+if __name__=="__main__":
+    port = int(os.environ.get("PORT", 10000))
+    web.run(host="0.0.0.0", port=port)
