@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request
-import datetime,time
+import datetime,time,os
 web=Flask(__name__)
 
 @web.route("/",methods=["POST","GET"])
@@ -55,4 +55,5 @@ def home():
                        
                     
 
-web.run(debug=True)
+port = int(os.environ.get("PORT", 10000))
+web.run(host="0.0.0.0", port=port)
