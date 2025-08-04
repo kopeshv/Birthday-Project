@@ -1,54 +1,58 @@
-from flask import Flask,request,render_template
-import os,datetime
-
+from flask import Flask,render_template,request
+import datetime,time
 web=Flask(__name__)
+
 @web.route("/",methods=["POST","GET"])
+
 def home():
-    old=None
-    k=None
-    n=None
-    day=None
-    i=None
-    p=None
-    f=None
+    date=None
+    detail=None
+    age=None
+    remain=None
+    msg=None
+    left=None
+    topic=None
+    sec=None
     if request.method=="POST":
-        b_date=request.form.get("b_date","").strip().split("-")
+        B_date=request.form.get("b_date","").strip()
+        b_date=B_date.split("-")
+        timu=request.form.get("timu","").strip()
+        today=datetime.date.today()
+        
         try:
-            if len(b_date) !=3:
-                raise ValueError ("date formate is worng")
+            topic="✨.....YOUR DETAILS.....✨"
+            if len(b_date)!=3:
+                raise ValueError ("❌...Given Birthday Date Was Wrong ❗ ")
             else:
-                   
-                b_d,b_m,b_y = map(int,b_date)
-                today=datetime.date.today()
+                if timu:
+                    dt=f"{timu} {B_date}"
+                    stu=time.strptime(dt,"%H:%M:%S %d-%m-%Y")
+                    b_second=time.mktime(stu)
+                    l_t=time.localtime()
+                    l_second=time.mktime(l_t)
+                    sec=int(l_second-b_second)
+                    
+                    
+                b_d,b_m,b_y=map(int,b_date)
                 birthday=datetime.date(b_y,b_m,b_d)
-                old=today.year-b_y
-                
-                if (today.month,today.day)<(birthday.month,birthday.day):
-                    old-=1
-                    n=datetime.date(today.year,b_m,b_d)
-                    day=(n-today).days 
-                    
-                
-                elif (today.month,today.day)==(birthday.month,birthday.day):
-                    i="Your Birthday is Today....."
-                     
-                else    :
-                    n=datetime.date(today.year+1,b_m,b_d)
-                    day=(n-today).days
-                    p=datetime.date(today.year,b_m,b_d)
-                    f=(today-p).days
-                    i=f"it has been {f} days since your birthday had gone !" 
-                           
-                k=birthday.strftime("you were born in %A on %d %B %Y")    
-                   
-                    
-                 
-                    
+                date=birthday.strftime("%d-%m-%Y")
+                detail=birthday.strftime("You Were Born On %A On %d %B %Y")
+                age=(today.year-birthday.year)
+                if (birthday.month,birthday.day)>(today.month,today.day):
+                    age-=1
+                    new=datetime.date(today.year,b_m,b_d)
+                    remain=(new-today).days
+                elif     (birthday.month,birthday.day)==(today.month,today.day):
+                    msg="✨...Today is Your Birthday...💫...Wish You Happy Birthday Dear...🥳"
+                elif  (birthday.month,birthday.day)<(today.month,today.day):
+                       new=datetime.date(today.year+1,b_m,b_d)
+                       remain=(new-today).days
+                       new1=datetime.date(today.year,b_m,b_d)
+                       left=(today-new1).days  
         except Exception as e:
-            old = f"Invalid input: {e}" 
-        
+            topic=f"Ivalid Input : {e}" 
+    return render_template("h.html",topic=topic,date=date,left=left,age=age,remain=remain,msg=msg,detail=detail,sec=sec)                      
+                       
                     
-        
-    return render_template("h.html",age=old,k=k,day=day,i=i)
-if __name__=="__main__":
-    web.run(debug=True)
+
+web.run(debug=True)

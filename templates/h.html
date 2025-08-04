@@ -1,23 +1,53 @@
-<!DOCTYPE html>
-<head>
-    <title>date</title>
-</head>
-<body>
-    <form method="POST">
-        <label>Enter your age like this DD-MM-YY :</label>
-        <input type="text" name="b_date"></input>
-        <button type="submit" > Give </button>
-    </form>
-    {%if age is not none   %}
-        <p>you are {{age}} years old !</p>
-        {%if k is not none or day is not none%}
-            <p>{{k}}</p>
-            {%if i is not none and i%}
-            <p>{{i}}</p>
+<DOCTYPE html>
+    <head>
+        <title>Birthday_info</title>
+    </head>
+    <body bgcolor=#FFF5E1 >
+        <h1>
+        <center>
+            <br><br>
+            <h1 style="color:blue">...............BORN DETAILS...............</h1>
+            <br><br>
+            <hr>
+            <h3>If You Give Your Birthday Date And Time It Will Show Some Datas About Your's</h3>
+            <h3 style="color:#DC143C;">👇🏻...Enter Your Birthday Date Below The Box And know the detail...👇🏻</h3>
+            <form method="POST">
+                <input type="text" name="b_date" placeholder="DD-MM-YY"></input><br><br>
+                <input type="text" name="timu" placeholder="HH-MM-SS"></input><br><br>
+                <button style="padding: 10px 70px; font-size: 15px; background-color: red; color: yellow; border: none; border-radius: 8px;">
+  SUBMIT
+</button>
+
+            </form>
+            <hr>
+            {%if topic is not none%}
+            <h2 style="color:#FF00FF">{{topic}}</h2>
             {%endif%}
-            {%if day is not none%}
-            <p>You have {{day}} days to left </p>
-            {%endif%}
-        {%endif%}
-    {%endif%}    
-</body>
+            <hr>
+            {% if topic is not none and date is not none and detail is not none %}
+            
+                
+                <p>🤩...Your Birthday Date Is {{date}}...😎</p>
+                <p>👑...{{detail}}...🌍</p>
+                {%if msg%}
+                    <p>{{msg}}</p>
+                {%elif remain%}
+                    <p>🎈
+...There Are {{remain}} Days Left Until Your Birthday...🎂🎉
+</p>
+                    {%if sec is not none%}
+                    <p>🤖...it's been {{sec}} Seconds Since You Were Born To Until Now...⏳</p>
+                    {%endif%} 
+                    {%if left%}
+                    <p>it has been {{left}} days since your birthday had gone</p>
+                    {%endif%}
+                    {%endif%} 
+                      
+
+
+            {%endif%} 
+
+
+        </center>
+    </h1>
+    </body>
